@@ -1,24 +1,28 @@
-import { Flex, Container, Heading, Stack, Text, Button, Box } from '@chakra-ui/react';
+import { Flex, Container, Heading, Stack, Text, Button, Box, IconButton } from '@chakra-ui/react';
 import './introduction.css';
-import homeLogo from './../../Assets/home-logo.png'
-import { Image } from '@chakra-ui/react'
+import homeLogo from './../../Assets/home-logo.png';
+import { Image } from '@chakra-ui/react';
 import { useContext } from 'react';
 import ResumeContext from '../../Context/ResumeContext';
 import ThemeTemplateData from '../../db/ThemeTemplateData';
 import { Helmet } from 'react-helmet';
+import { FaWhatsapp, FaArrowUp } from 'react-icons/fa';
 
 export default function Introduction() {
     const { selectBtn, setSelectBtn, setCurrentTheme, showComponent, setShowComponent } = useContext(ResumeContext);
 
     const handleSelectTemplate = () => {
-        setSelectBtn(!selectBtn)
+        setSelectBtn(!selectBtn);
     }
 
     const showTheme = (e) => {
-        setShowComponent(!showComponent)
-        setCurrentTheme(e.target.id)
+        setShowComponent(!showComponent);
+        setCurrentTheme(e.target.id);
     }
 
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     return (
         <>
@@ -40,7 +44,6 @@ export default function Introduction() {
                     align={'center'}
                     spacing={{ base: 8, md: 10 }}
                     py={{ base: 1.5, md: 10, sm: '14' }}>
-
                     {
                         selectBtn
                             ?
@@ -70,7 +73,7 @@ export default function Introduction() {
                                     <Box className='Bullet_Points'>
                                         <Button>2</Button>
                                         <Text _dark={{ color: "gray.400" }} color={'gray.900'} fontSize={'xl'}>
-                                            Build you resume using our easy to use resume builder.
+                                            Build your resume using our easy to use resume builder.
                                         </Text>
                                     </Box>
                                     <Box className='Bullet_Points'>
@@ -126,7 +129,26 @@ export default function Introduction() {
                         </>
                 }
             </Container>
-        </>
 
+            <Flex justifyContent="space-between" mt={8} px={4}>
+                <IconButton
+                    as="a"
+                    href="https://wa.me/yourwhatsappnumber?text=Hi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    colorScheme="whatsapp"
+                    aria-label="Send Hi on WhatsApp"
+                    icon={<FaWhatsapp />}
+                    size="lg"
+                />
+                <IconButton
+                    onClick={scrollToTop}
+                    colorScheme="teal"
+                    aria-label="Go to top"
+                    icon={<FaArrowUp />}
+                    size="lg"
+                />
+            </Flex>
+        </>
     );
 }
